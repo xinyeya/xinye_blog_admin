@@ -2,39 +2,98 @@
   <div>
     <el-row class="tac">
       <el-col :span="24">
-        <el-menu
-          default-active="2"
-          class="el-menu-vertical-demo">
-          <el-submenu index="1">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>导航一</span>
-            </template>
-            <el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="1-1">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="1-3">选项3</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="1-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="1-4-1">选项1</el-menu-item>
-            </el-submenu>
-          </el-submenu>
+        <el-menu active-text-color>
+          <!-- 首页 -->
+          <el-menu-item index="1">
+              <i class="el-icon-home"></i>
+              <span slot="title">首页</span>
+          </el-menu-item >
+          <!-- 用户管理 -->
           <el-menu-item index="2">
-            <i class="el-icon-menu"></i>
-            <span slot="title">导航二</span>
+            <i class="el-icon-user"></i>
+            <span slot="title">用户管理</span>
           </el-menu-item>
-          <el-menu-item index="3" disabled>
-            <i class="el-icon-document"></i>
-            <span slot="title">导航三</span>
+          <!-- 分享功能 -->
+          <el-menu-item index="3">
+            <i class="el-icon-share"></i>
+            <span slot="title">分享功能</span>
           </el-menu-item>
-          <el-menu-item index="4">
-            <i class="el-icon-setting"></i>
-            <span slot="title">导航四</span>
-          </el-menu-item>
+          <!-- 信息管理 -->
+          <el-menu
+            default-active="1"
+            active-text-color="#FF6428">
+            <el-submenu index="4">
+              <template slot="title">
+                <i class="el-icon-warning-outline"></i>
+                <span>信息管理</span>
+              </template>
+              <el-menu-item-group>
+                <el-menu-item index="1-1">个人信息</el-menu-item>
+                <el-menu-item index="1-2">修改信息</el-menu-item>
+              </el-menu-item-group>
+            </el-submenu>
+          </el-menu>
+          <!-- 资金管理 -->
+          <el-menu
+            default-active="2"
+            active-text-color="#FF6428">
+            <el-submenu index="5">
+              <template slot="title">
+                <i class="el-icon-goods"></i>
+                <span>资金管理</span>
+              </template>
+              <el-menu-item-group>
+                <el-menu-item index="1-1">资金流水</el-menu-item>
+                <el-menu-item index="1-2">区域投资</el-menu-item>
+              </el-menu-item-group>
+            </el-submenu>
+          </el-menu>
+          <!-- 资金数据 -->
+          <el-menu
+            default-active="3"
+            active-text-color="#FF6428">
+            <el-submenu index="6">
+              <template slot="title">
+                <i class="el-icon-s-marketing"></i>
+                <span>资金数据</span>
+              </template>
+              <el-menu-item-group>
+                <el-menu-item index="1-1">投资分布</el-menu-item>
+                <el-menu-item index="1-2">项目分布</el-menu-item>
+                <el-menu-item index="1-3">收支分布</el-menu-item>
+              </el-menu-item-group>
+            </el-submenu>
+          </el-menu>
+          <!-- 权限设置 -->
+          <el-menu
+            default-active="4"
+            active-text-color="#FF6428">
+            <el-submenu index="7">
+              <template slot="title">
+                <i class="el-icon-setting"></i>
+                <span>权限设置</span>
+              </template>
+              <el-menu-item-group>
+                <el-menu-item index="1-1">页面权限</el-menu-item>
+                <el-menu-item index="1-2">按钮权限</el-menu-item>
+              </el-menu-item-group>
+            </el-submenu>
+          </el-menu>
+          <!-- 错误页面 -->
+          <el-menu
+            default-active="5"
+            active-text-color="#FF6428">
+            <el-submenu index="8">
+              <template slot="title">
+                <i class="el-icon-error"></i>
+                <span>错误页面</span>
+              </template>
+              <el-menu-item-group>
+                <el-menu-item index="1-1">401</el-menu-item>
+                <el-menu-item index="1-2">404</el-menu-item>
+              </el-menu-item-group>
+            </el-submenu>
+          </el-menu>
         </el-menu>
       </el-col>
     </el-row>
