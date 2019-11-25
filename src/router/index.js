@@ -7,7 +7,6 @@ const router = new VueRouter({
   routes: [
     {
       path: '',
-      name: 'layout',
       component: () => import('@/views/layout'),
       children: [
         {
