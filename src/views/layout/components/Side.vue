@@ -2,34 +2,42 @@
   <div>
     <el-row class="tac">
       <el-col :span="24">
-        <el-menu active-text-color>
+        <el-menu
+          :default-active="this.$route.path"
+          active-text-color
+          router
+          class="sideStyle">
           <!-- 首页 -->
-          <el-menu-item index="1">
+          <el-menu-item
+            index="/">
               <i class="el-icon-home"></i>
               <span slot="title">首页</span>
           </el-menu-item >
           <!-- 用户管理 -->
-          <el-menu-item index="2">
+          <el-menu-item
+            route
+            index="/user">
             <i class="el-icon-user"></i>
             <span slot="title">用户管理</span>
           </el-menu-item>
           <!-- 分享功能 -->
-          <el-menu-item index="3">
+          <el-menu-item index="/share">
             <i class="el-icon-share"></i>
             <span slot="title">分享功能</span>
           </el-menu-item>
           <!-- 信息管理 -->
           <el-menu
             default-active="1"
-            active-text-color="#FF6428">
-            <el-submenu index="4">
+            active-text-color="#FF6428"
+            router>
+            <el-submenu>
               <template slot="title">
                 <i class="el-icon-warning-outline"></i>
                 <span>信息管理</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="1-1">个人信息</el-menu-item>
-                <el-menu-item index="1-2">修改信息</el-menu-item>
+                <el-menu-item index="/personal">个人信息</el-menu-item>
+                <el-menu-item index="/edit_personal">修改信息</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
           </el-menu>
@@ -139,5 +147,8 @@ body > .el-container {
 
 .el-container:nth-child(7) .el-aside {
   line-height: 320px;
+}
+.sideStyle {
+  padding-left: 0px !important;
 }
 </style>

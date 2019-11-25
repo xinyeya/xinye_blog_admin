@@ -14,6 +14,26 @@ const router = new VueRouter({
           path: '/',
           name: 'home',
           component: () => import('@/views/home')
+        },
+        {
+          path: '/user',
+          name: 'user',
+          component: () => import('@/views/user')
+        },
+        {
+          path: '/share',
+          name: 'share',
+          component: () => import('@/views/share')
+        },
+        {
+          path: '/personal',
+          name: 'personal',
+          component: () => import('@/views/personal')
+        },
+        {
+          path: '/edit_personal',
+          name: 'edit_personal',
+          component: () => import('@/views/edit_personal')
         }
       ]
     }
