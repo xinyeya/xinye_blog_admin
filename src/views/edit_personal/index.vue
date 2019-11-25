@@ -7,7 +7,9 @@
 <script>
 export default {
   name: 'edit_personal',
-  data () {}
+  data () {
+    return {}
+  }
 }
 </script>
 

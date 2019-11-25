@@ -109,6 +109,34 @@
           </div>
         </el-col>
       </el-row>
+      <!-- 出借服务 -->
+      <el-row type="flex" justify="space-between" align="center" class="borrow">
+        <el-col>
+          <div>
+            <a href="#" target="_black"></a>
+          </div>
+        </el-col>
+        <el-col>
+          <div>
+            <a class="borrow-two" href="#" target="_black"></a>
+          </div>
+        </el-col>
+        <el-col>
+          <div>
+            <a class="borrow-three" href="#" target="_black"></a>
+          </div>
+        </el-col>
+        <el-col>
+          <div>
+            <a class="borrow-four" href="#" target="_black"></a>
+          </div>
+        </el-col>
+        <el-col>
+          <div>
+            <a class="borrow-five" href="#" target="_black"></a>
+          </div>
+        </el-col>
+      </el-row>
     </el-card>
   </div>
 </template>
@@ -249,6 +277,34 @@ export default {
     .active:hover{
       background-color: #3bc5ff;
       color: #fff;
+    }
+  }
+}
+.borrow{
+  .el-col{
+    // padding: 2px;
+    a{
+      display: block;
+      width: 100%;
+      height: 50px;
+      background: url('http://118.126.117.130/permission/static/img/pro_map.c6306689.gif') no-repeat;
+      background-position: 0px -300px
+    }
+    .borrow-two{
+      background: url('http://118.126.117.130/permission/static/img/pro_map.c6306689.gif') no-repeat;
+      background-position: 0px -200px;
+    }
+    .borrow-three{
+      background: url('http://118.126.117.130/permission/static/img/pro_map.c6306689.gif') no-repeat;
+      background-position: 0px -100px;
+    }
+    .borrow-four{
+      background: url('http://118.126.117.130/permission/static/img/pro_map.c6306689.gif') no-repeat;
+      background-position: 0px 0px;
+    }
+    .borrow-five{
+      background: url('http://118.126.117.130/permission/static/img/pro_map.c6306689.gif') no-repeat;
+      background-position: 0px -100px;
     }
   }
 }
