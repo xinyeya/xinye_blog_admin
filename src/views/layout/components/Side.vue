@@ -30,7 +30,7 @@
             default-active="1"
             active-text-color="#FF6428"
             router>
-            <el-submenu index="">
+            <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-warning-outline"></i>
                 <span>信息管理</span>
@@ -44,38 +44,41 @@
           <!-- 资金管理 -->
           <el-menu
             default-active="2"
-            active-text-color="#FF6428">
-            <el-submenu index="5">
+            active-text-color="#FF6428"
+            router>
+            <el-submenu index="2">
               <template slot="title">
                 <i class="el-icon-goods"></i>
                 <span>资金管理</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="1-1">资金流水</el-menu-item>
-                <el-menu-item index="1-2">区域投资</el-menu-item>
+                <el-menu-item index="/money_water">资金流水</el-menu-item>
+                <el-menu-item index="/area_invest">区域投资</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
           </el-menu>
           <!-- 资金数据 -->
           <el-menu
             default-active="3"
-            active-text-color="#FF6428">
-            <el-submenu index="6">
+            active-text-color="#FF6428"
+            router>
+            <el-submenu index="4">
               <template slot="title">
                 <i class="el-icon-s-marketing"></i>
                 <span>资金数据</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="1-1">投资分布</el-menu-item>
-                <el-menu-item index="1-2">项目分布</el-menu-item>
-                <el-menu-item index="1-3">收支分布</el-menu-item>
+                <el-menu-item index="/invest_dis">投资分布</el-menu-item>
+                <el-menu-item index="/project_dis">项目分布</el-menu-item>
+                <el-menu-item index="/income_expenditure">收支分布</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
           </el-menu>
           <!-- 权限设置 -->
           <el-menu
             default-active="4"
-            active-text-color="#FF6428">
+            active-text-color="#FF6428"
+            router>
             <el-submenu index="7">
               <template slot="title">
                 <i class="el-icon-setting"></i>
@@ -90,7 +93,8 @@
           <!-- 错误页面 -->
           <el-menu
             default-active="5"
-            active-text-color="#FF6428">
+            active-text-color="#FF6428"
+            router>
             <el-submenu index="8">
               <template slot="title">
                 <i class="el-icon-error"></i>

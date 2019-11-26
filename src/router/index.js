@@ -33,6 +33,31 @@ const router = new VueRouter({
           path: '/edit_personal',
           name: 'edit_personal',
           component: () => import('@/views/edit_personal')
+        },
+        {
+          path: '/money_water',
+          name: 'money_water',
+          component: () => import('@/views/money_water')
+        },
+        {
+          path: '/area_invest',
+          name: 'area_invest',
+          component: () => import('@/views/area_invest')
+        },
+        {
+          path: '/invest_dis',
+          name: 'invest_dis',
+          component: () => import('@/views/invest_dis')
+        },
+        {
+          path: '/project_dis',
+          name: 'project_dis',
+          component: () => import('@/views/pro_dis')
+        },
+        {
+          path: '/income_expenditure',
+          name: 'income_expenditure',
+          component: () => import('@/views/income_expenditure')
         }
       ]
     }
