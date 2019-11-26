@@ -6,6 +6,11 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   routes: [
     {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/login')
+    },
+    {
       path: '',
       component: () => import('@/views/layout'),
       children: [
@@ -67,7 +72,7 @@ const router = new VueRouter({
         {
           path: '/btn_right',
           name: 'btn_right',
-          component: () => import('@/view/btn_right')
+          component: () => import('@/views/btn_right')
         }
       ]
     }

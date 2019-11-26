@@ -85,8 +85,8 @@
                 <span>权限设置</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="1-1">页面权限</el-menu-item>
-                <el-menu-item index="1-2">按钮权限</el-menu-item>
+                <el-menu-item index="/page_right">页面权限</el-menu-item>
+                <el-menu-item index="/btn_right">按钮权限</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
           </el-menu>
