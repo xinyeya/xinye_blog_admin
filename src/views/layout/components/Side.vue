@@ -90,22 +90,6 @@
               </el-menu-item-group>
             </el-submenu>
           </el-menu>
-          <!-- 错误页面 -->
-          <el-menu
-            default-active="5"
-            active-text-color="#FF6428"
-            router>
-            <el-submenu index="8">
-              <template slot="title">
-                <i class="el-icon-error"></i>
-                <span>错误页面</span>
-              </template>
-              <el-menu-item-group>
-                <el-menu-item index="1-1">401</el-menu-item>
-                <el-menu-item index="1-2">404</el-menu-item>
-              </el-menu-item-group>
-            </el-submenu>
-          </el-menu>
         </el-menu>
       </el-col>
     </el-row>

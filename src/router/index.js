@@ -58,6 +58,16 @@ const router = new VueRouter({
           path: '/income_expenditure',
           name: 'income_expenditure',
           component: () => import('@/views/income_expenditure')
+        },
+        {
+          path: '/page_right',
+          name: 'page_right',
+          component: () => import('@/views/page_right')
+        },
+        {
+          path: '/btn_right',
+          name: 'btn_right',
+          component: () => import('@/view/btn_right')
         }
       ]
     }
