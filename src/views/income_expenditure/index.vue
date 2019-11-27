@@ -1,6 +1,8 @@
 <template>
   <div>
-    收支分布
+    <el-card style="box-shadow: 0 2px 12px 0 #FF6C60">
+      待开发
+    </el-card>
   </div>
 </template>
 
@@ -14,5 +16,4 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
 </style>
