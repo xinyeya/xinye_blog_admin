@@ -68,9 +68,7 @@
                 <span>资金数据</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="/invest_dis">投资分布</el-menu-item>
                 <el-menu-item index="/project_dis">项目分布</el-menu-item>
-                <el-menu-item index="/income_expenditure">收支分布</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
           </el-menu>

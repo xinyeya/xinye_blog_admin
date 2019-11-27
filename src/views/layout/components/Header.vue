@@ -7,20 +7,46 @@
       <el-col :span="4">
         <span class="title">小爱<i>Admin</i></span>
       </el-col>
-      <el-col :offset="12" :span="1">
-        <img class="header-img-github" src="https://static.easyicon.net/preview/115/1157868.gif" alt="" srcset="">
+      <el-col :offset="13" :span="1">
+        <el-tooltip class="item" effect="dark" content="github" placement="bottom">
+          <a href="https://github.com/xinyeya/xinye_blog_admin.git" target="_blank"><img class="header-img-github" src="@/assets/image/github.gif" alt="" srcset=""></a>
+        </el-tooltip>
       </el-col>
       <el-col :span="1">
-        <img class="header-img-github" src="https://static.easyicon.net/preview/123/1230528.gif" alt="">
+        <el-popover
+          placement="bottom"
+          trigger="hover">
+          <div class="tip-tag">
+            <el-tag type="success">加我微信</el-tag>
+            <img src="@/assets/image/myweixin.jpg" alt="" srcset="">
+          </div>
+          <img slot="reference" class="header-img-github" src="@/assets/image/weixin.gif" alt="">
+        </el-popover>
       </el-col>
       <el-col :span="1">
-        <img class="header-img-github" src="https://static.easyicon.net/preview/116/1164772.gif" alt="">
-      </el-col>
-      <el-col :span="1">
-        <img class="header-img-github" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3464483626,3468995643&fm=26&gp=0.jpg" alt="">
+        <el-popover
+          placement="bottom"
+          trigger="hover">
+          <div class="tip-tag">
+            <el-tag type="success">加入QQ群</el-tag>
+            <img src="@/assets/image/QQqun.jpg" alt="" srcset="">
+          </div>
+          <img slot="reference" class="header-img-github" src="@/assets/image/QQ.gif" alt="">
+        </el-popover>
       </el-col>
       <el-col :span="4" type="flex" align="middle" class="header-user">
-        <span>您好，<b>管理员</b></span><img class="header-img-github" src="https://wx.qlogo.cn/mmopen/vi_32/un2HbJJc6eiaviaibvMgiasFNlVDlNOb9E6WCpCrsO4wMMhHIbsvTkAbIehLwROVFlu8dLMcg00t3ZtOcgCCdcxlZA/132" alt="">
+        <el-popover
+          placement="bottom"
+          trigger="hover">
+          <div class="user-tip">
+            <p @click="userInfo">个人信息</p>
+            <p @click="userEdit">修改信息</p>
+            <p @click="userOut">退出登录</p>
+          </div>
+          <div slot="reference">
+            <span>您好，<b>管理员</b></span><img class="header-img-github" src="https://wx.qlogo.cn/mmopen/vi_32/un2HbJJc6eiaviaibvMgiasFNlVDlNOb9E6WCpCrsO4wMMhHIbsvTkAbIehLwROVFlu8dLMcg00t3ZtOcgCCdcxlZA/132" alt="">
+          </div>
+        </el-popover>
       </el-col>
     </el-row>
   </div>
@@ -31,6 +57,17 @@ export default {
   name: 'Header',
   data () {
     return {}
+  },
+  methods: {
+    userInfo () {
+      this.$router.push({ path: '/personal' })
+    },
+    userEdit () {
+      this.$router.push({ path: '/edit_personal' })
+    },
+    userOut () {
+      this.$router.push({ path: '/login' })
+    }
   }
 }
 </script>
@@ -61,5 +98,23 @@ span b{
     vertical-align:middle
   }
 }
-
+.tip-tag{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  img{
+    padding: 10px;
+    width: 120px;
+    height: 120px;
+  }
+}
+.user-tip{
+  padding: 5px;
+  text-align: center;
+  p{
+    cursor: pointer;
+  }
+}
 </style>
