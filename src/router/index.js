@@ -83,6 +83,18 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   // 开启进度条
   nprogress.start()
+  console.log(to.path)
+  if (to.path !== '/login') {
+    // 关闭进度条
+    if (from.path === '/login') {
+      nprogress.done()
+    }
+    // 跳转到login
+    next({ name: 'login' })
+  } else {
+    console.log('登录成功')
+    next()
+  }
 })
 
 export default router
