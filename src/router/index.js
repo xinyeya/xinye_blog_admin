@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import nprogress from 'nprogress'
+import { getUser } from '@/utils/storge'
 
 Vue.use(VueRouter)
 
@@ -83,18 +84,34 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   // 开启进度条
   nprogress.start()
-  console.log(to.path)
+  const userInfo = getUser()
   if (to.path !== '/login') {
-    // 关闭进度条
-    if (from.path === '/login') {
-      nprogress.done()
+    // 判断是否有登录缓存
+    if (!userInfo) {
+      // 如果已在登录页面则关闭进度条
+      if (from.path === '/login') {
+        nprogress.done()
+      }
+      next({ name: 'login' })
+    } else {
+      // 如果已经登录，则允许进行下一步
+      next()
     }
-    // 跳转到login
-    next({ name: 'login' })
   } else {
-    console.log('登录成功')
-    next()
+    // 防止有人直接输入路径跳转
+    if (!userInfo) {
+      next()
+    } else {
+      next({ name: 'home' })
+      window.location.reload()
+    }
   }
+})
+
+// 后置操作rou
+router.afterEach((to, from) => {
+  // 关闭进度条
+  nprogress.done()
 })
 
 export default router

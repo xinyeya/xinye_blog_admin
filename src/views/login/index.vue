@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import { saveUser } from '@/utils/storge.js'
 export default {
   name: 'login',
   data () {
@@ -78,6 +79,9 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          let userStorage = this.user.username + this.user.password
+          console.log(userStorage)
+          saveUser(userStorage)
           this.$router.push({ path: '/', params: { id: '1' } })
         } else {
           return false
