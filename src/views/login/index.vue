@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { saveUser } from '@/utils/storge.js'
+import { saveStorage } from '@/utils/storge.js'
 export default {
   name: 'login',
   data () {
@@ -66,11 +66,11 @@ export default {
       rules: {
         username: [
           { required: true, message: '请输入用户名~', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          { min: 3, message: '长度在 3 到 5 个字符', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入密码~', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          { min: 3, message: '长度在 3 到 5 个字符', trigger: 'blur' }
         ]
       }
     }
@@ -79,10 +79,13 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          let userStorage = this.user.username + this.user.password
-          console.log(userStorage)
-          saveUser(userStorage)
-          this.$router.push({ path: '/', params: { id: '1' } })
+          let user = this.user
+          let userStorage = user.username + user.password
+          saveStorage(this.$store.state.user_key, userStorage)
+          if (user.username === 'editor' || user.username === 'admin') {
+            saveStorage(this.$store.state.role_key, user.username)
+          }
+          this.$router.push({ path: '/' })
         } else {
           return false
         }

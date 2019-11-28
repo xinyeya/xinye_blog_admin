@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import { removeStorage } from '@/utils/storge'
 export default {
   name: 'Header',
   data () {
@@ -66,6 +67,7 @@ export default {
       this.$router.push({ path: '/edit_personal' })
     },
     userOut () {
+      removeStorage(this.$store.state.role_key)
       this.$router.push({ path: '/login' })
     }
   }

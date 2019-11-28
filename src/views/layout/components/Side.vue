@@ -30,7 +30,7 @@
             default-active="1"
             active-text-color="#FF6428"
             router>
-            <el-submenu index="1">
+            <el-submenu index="">
               <template slot="title">
                 <i class="el-icon-warning-outline"></i>
                 <span>信息管理</span>
