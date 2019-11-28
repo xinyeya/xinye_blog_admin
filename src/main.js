@@ -8,10 +8,17 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import 'font-awesome/css/font-awesome.css'
 import locale from 'element-ui/lib/locale/lang/en'
+// 引入nprogress
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css' // 这个样式必须引入
 
 Vue.use(VueAxios, axios)
 Vue.use(ElementUI)
 Vue.use(ElementUI, { locale })
+
+// 简单配置
+NProgress.inc(0.2)
+NProgress.configure({ easing: 'ease', speed: 500, showSpinner: false })
 
 Vue.config.productionTip = false
 

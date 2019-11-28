@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import nprogress from 'nprogress'
 
 Vue.use(VueRouter)
 
@@ -77,6 +78,11 @@ const router = new VueRouter({
       ]
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  // 开启进度条
+  nprogress.start()
 })
 
 export default router
