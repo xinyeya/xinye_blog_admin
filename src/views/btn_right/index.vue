@@ -4,7 +4,7 @@
       <p>我的权限：["{{admin_user}}"]</p>
       <p>
         <span>切换权限：</span>
-        <el-radio-group v-model="admin_user" size="mini">
+        <el-radio-group v-model="admin_user" size="mini" @change="handleRole">
           <el-radio-button label="editor"></el-radio-button>
           <el-radio-button label="admin"></el-radio-button>
         </el-radio-group>
@@ -27,11 +27,19 @@
 </template>
 
 <script>
+import { saveStorage } from '@/utils/storge'
 export default {
   name: 'btn_right',
   data () {
     return {
       admin_user: 'editor'
+    }
+  },
+  methods: {
+    handleRole () {
+      saveStorage(this.$store.state.role_key, this.admin_user)
+      this.$store.commit('setRole', this.admin_user)
+      console.log(this.$store.state.role)
     }
   }
 }
