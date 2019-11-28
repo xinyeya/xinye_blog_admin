@@ -1,6 +1,6 @@
 <template>
   <div>
-    区域投资待开发
+    投资分布待开发
   </div>
 </template>
 

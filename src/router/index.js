@@ -22,7 +22,7 @@ const router = new VueRouter({
           name: 'home',
           component: () => import('@/views/home'),
           meta: [
-            { name: '首页' }
+            { name: '首页', url: '/' }
           ]
         },
         {
@@ -30,7 +30,7 @@ const router = new VueRouter({
           name: 'user',
           component: () => import('@/views/user'),
           meta: [
-            { name: '用户管理' }
+            { name: '用户管理', url: '/user' }
           ]
         },
         {
@@ -38,7 +38,7 @@ const router = new VueRouter({
           name: 'share',
           component: () => import('@/views/share'),
           meta: [
-            { name: '分享功能' }
+            { name: '分享功能', url: '/share' }
           ]
         },
         {
@@ -46,7 +46,8 @@ const router = new VueRouter({
           name: 'personal',
           component: () => import('@/views/personal'),
           meta: [
-            { name: '个人信息' }
+            { name: '信息管理' },
+            { name: '个人信息', url: '/personal' }
           ]
         },
         {
@@ -54,7 +55,8 @@ const router = new VueRouter({
           name: 'edit_personal',
           component: () => import('@/views/edit_personal'),
           meta: [
-            { name: '修改信息' }
+            { name: '信息管理' },
+            { name: '修改信息', url: '/edit_personal' }
           ]
         },
         {
@@ -62,7 +64,8 @@ const router = new VueRouter({
           name: 'money_water',
           component: () => import('@/views/money_water'),
           meta: [
-            { name: '资金流水' }
+            { name: '资金管理' },
+            { name: '资金流水', url: '/money_water' }
           ]
         },
         {
@@ -70,7 +73,8 @@ const router = new VueRouter({
           name: 'area_invest',
           component: () => import('@/views/area_invest'),
           meta: [
-            { name: '区域投资' }
+            { name: '资金管理' },
+            { name: '区域投资', url: '/area_invest' }
           ]
         },
         {
@@ -78,7 +82,8 @@ const router = new VueRouter({
           name: 'invest_dis',
           component: () => import('@/views/invest_dis'),
           meta: [
-            { name: '区域投资' }
+            { name: '资金数据' },
+            { name: '投资分布', to: '/invest_dis' }
           ]
         },
         {
@@ -86,7 +91,8 @@ const router = new VueRouter({
           name: 'project_dis',
           component: () => import('@/views/pro_dis'),
           meta: [
-            { name: '项目分布' }
+            { name: '资金数据' },
+            { name: '项目分布', url: '/project_dis' }
           ]
         },
         {
@@ -94,7 +100,8 @@ const router = new VueRouter({
           name: 'income_expenditure',
           component: () => import('@/views/income_expenditure'),
           meta: [
-            { name: '收支分布' }
+            { name: '资金数据' },
+            { name: '收支分布', url: '/income_expenditure' }
           ]
         },
         {
@@ -102,7 +109,8 @@ const router = new VueRouter({
           name: 'page_right',
           component: () => import('@/views/page_right'),
           meta: [
-            { name: '页面权限' }
+            { name: '权限设置' },
+            { name: '页面权限', url: '/page_right' }
           ]
         },
         {
@@ -110,7 +118,8 @@ const router = new VueRouter({
           name: 'btn_right',
           component: () => import('@/views/btn_right'),
           meta: [
-            { name: '按钮权限' }
+            { name: '权限设置' },
+            { name: '按钮权限', to: '/btn_right' }
           ]
         },
         {

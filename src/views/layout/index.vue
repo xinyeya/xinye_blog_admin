@@ -8,10 +8,16 @@
         <Side></Side>
       </el-aside>
       <el-main height="100%">
-        <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item v-for="(item, index) in $route.meta" :key="index">{{item.name}}</el-breadcrumb-item>
-        </el-breadcrumb>
-        <br />
+        <p class="bread">
+          <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item v-for="(item, index) in $route.meta" :key="index">
+              <router-link v-if="item.url" :to="item.url">{{item.name}}</router-link>
+              <a v-else>
+                  {{item.name}}
+              </a>
+            </el-breadcrumb-item>
+          </el-breadcrumb>
+        </p>
         <router-view/>
       </el-main>
     </el-container>
@@ -49,5 +55,8 @@ export default {
 .el-main {
   background-color: #E9EEF3;
   color: #333;
+}
+.bread{
+  background-color: #f0f2f5;
 }
 </style>
