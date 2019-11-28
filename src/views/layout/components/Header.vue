@@ -67,6 +67,7 @@ export default {
       this.$router.push({ path: '/edit_personal' })
     },
     userOut () {
+      removeStorage(this.$store.state.user_key)
       removeStorage(this.$store.state.role_key)
       this.$router.push({ path: '/login' })
     }
