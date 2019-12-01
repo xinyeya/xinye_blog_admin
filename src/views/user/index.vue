@@ -27,13 +27,13 @@
               fit=true>
             </el-table-column>
             <el-table-column
-              prop="create_address"
+              prop="create_site"
               label="注册地址"
               align=center
               fit=true>
             </el-table-column>
             <el-table-column
-              prop="address"
+              prop="area"
               label="地区"
               align=center
               width="80">
@@ -66,11 +66,13 @@
           <el-row class="user-paging" :gutter="24" type="flex" justify="end" align="center">
             <el-col :span="12">
               <el-pagination
-                :current-page="currentPage4"
-                :page-sizes="[100, 200, 300, 400]"
-                :page-size="100"
+                :current-page="page"
+                :page-sizes="pageSizes"
+                :page-size="pageSize"
                 layout="total, sizes, prev, pager, next, jumper"
-                :total="400">
+                :total="total"
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange">
               </el-pagination>
             </el-col>
           </el-row>
@@ -81,63 +83,44 @@
 </template>
 
 <script>
+import { userinfo } from '@/api/user'
 export default {
   name: 'user',
   data () {
     return {
-      userData: [
-        {
-          id: 1,
-          username: '于涛',
-          email: 'h.fkpvpobupk@hrlwk.gb',
-          create_address: '云南省 怒江傈僳族自治州 其它区',
-          address: '西南',
-          network: '铁通',
-          ip: '24.58.181.182',
-          create_time: '1974-10-06 09:19:43',
-          login_time: '2019-11-24 11:17:22'
-        },
-        {
-          id: 1,
-          username: '于涛',
-          email: 'h.fkpvpobupk@hrlwk.gb',
-          create_address: '云南省 怒江傈僳族自治州 其它区',
-          address: '西南',
-          network: '铁通',
-          ip: '24.58.181.182',
-          create_time: '1974-10-06 09:19:43',
-          login_time: '2019-11-24 11:17:22'
-        },
-        {
-          id: 1,
-          username: '于涛',
-          email: 'h.fkpvpobupk@hrlwk.gb',
-          create_address: '云南省 怒江傈僳族自治州 其它区',
-          address: '西南',
-          network: '铁通',
-          ip: '24.58.181.182',
-          create_time: '1974-10-06 09:19:43',
-          login_time: '2019-11-24 11:17:22'
-        },
-        {
-          id: 1,
-          username: '于涛',
-          email: 'h.fkpvpobupk@hrlwk.gb',
-          create_address: '云南省 怒江傈僳族自治州 其它区',
-          address: '西南',
-          network: '铁通',
-          ip: '24.58.181.182',
-          create_time: '1974-10-06 09:19:43',
-          login_time: '2019-11-24 11:17:22'
-        }
-      ],
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4
+      userData: [],
+      page: 1,
+      total: 0,
+      pageSize: 5,
+      pageSizes: [5, 10, 15, 20]
     }
   },
-  methods: {}
+  created () {
+    this.loadUserTable(this.page, this.pageSize)
+  },
+
+  methods: {
+    handleCurrentChange (val) {
+      this.page = val
+      this.loadUserTable(val, this.pageSize)
+    },
+
+    handleSizeChange (val) {
+      this.pageSize = val
+      this.loadUserTable(this.page, val)
+    },
+
+    async loadUserTable (page, pageSize) {
+      try {
+        let list = await userinfo(page, pageSize)
+        console.log(list)
+        this.userData = list.data.list
+        this.total = list.data.count
+      } catch (e) {
+        console.log(e)
+      }
+    }
+  }
 }
 </script>
 

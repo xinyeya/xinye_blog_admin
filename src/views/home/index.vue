@@ -137,6 +137,9 @@ export default {
       }]
     }
   },
+  created () {
+    this.index()
+  },
   mounted () {
     this.chart_example()
     this.chart_user_type()

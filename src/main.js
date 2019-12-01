@@ -4,15 +4,12 @@ import router from './router'
 import store from './store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
 import 'font-awesome/css/font-awesome.css'
 import locale from 'element-ui/lib/locale/lang/en'
 // 引入nprogress
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css' // 这个样式必须引入
 
-Vue.use(VueAxios, axios)
 Vue.use(ElementUI)
 Vue.use(ElementUI, { locale })
 

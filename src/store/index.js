@@ -1,19 +1,19 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { getStorage } from '@/utils/storge.js'
+import { getStorage, saveStorage } from '@/utils/storge.js'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    role: getStorage(),
-    user_key: 'user_info',
-    role_key: 'role'
+    user: getStorage()
   },
   mutations: {
-    setRole (state, data) {
-      // 将数据重新赋值
-      state.role = data
+    setUser (state, data) {
+      // 修改仓库中的状态
+      state.user = data
+      // 重新存入缓存
+      saveStorage(state.user)
     }
   },
   actions: {
