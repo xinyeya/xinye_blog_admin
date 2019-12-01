@@ -113,7 +113,6 @@ export default {
     async loadUserTable (page, pageSize) {
       try {
         let list = await userinfo(page, pageSize)
-        console.log(list)
         this.userData = list.data.list
         this.total = list.data.count
       } catch (e) {
