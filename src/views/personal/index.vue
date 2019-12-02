@@ -13,11 +13,11 @@
         <el-col :span="5">
           <div class="user-detail">
             <div class="user-text">
-              <div>姓名：王小川</div>
-              <div>昵称：PW68061826</div>
-              <div>投资年限：5年</div>
-              <div>绑定邮箱：9061446xx@qq.com</div>
-              <div>绑定手机：189xxxx9028</div>
+              <div>姓名：{{userInfo.username}}</div>
+              <div>昵称：{{userInfo.nickname}}</div>
+              <div>投资年限：{{userInfo.invetYear}}年</div>
+              <div>绑定邮箱：{{userInfo.email}}</div>
+              <div>绑定手机：{{userInfo.mobile}}</div>
             </div>
             <div class="el-button">
               <i class="el-icon-s-claim"></i>
@@ -32,7 +32,7 @@
               <span>可用现金：</span><img src="http://118.126.117.130/permission/static/img/toMPic02.3ef8fa17.png" alt="" srcset="">
             </div>
             <div class="invite-btn">
-              <span><b>0.00</b>元</span>
+              <span><b>{{userInfo.useCash}}</b>元</span>
               <el-button size="mini" type="success">成功按钮</el-button>
               <el-button size="mini" type="info">信息按钮</el-button>
               <el-button size="mini" type="danger">危险按钮</el-button>
@@ -52,16 +52,16 @@
             </div>
             <div class="user-fans-num">
               <div>
-                <span>20</span>
+                <span>{{userInfo.invetNum}}</span>
                 <p>投资数量</p>
               </div>
               <div>
-                <span>20</span>
-                <p>投资数量</p>
+                <span>{{userInfo.idol}}</span>
+                <p>关注的人</p>
               </div>
               <div>
-                <span>20</span>
-                <p>投资数量</p>
+                <span>{{userInfo.fans}}</span>
+                <p>粉丝</p>
               </div>
             </div>
             <div class="user-fans-link">
@@ -75,7 +75,7 @@
         <el-col class="due" :span="6">
           <div class="due-money">
             <h4><i class="fa fa-money"></i>待收资产</h4>
-            <p><i>￥</i> <span>78.00</span></p>
+            <p><i>￥</i> <span>{{userInfo.awaitPrope}}</span></p>
             <div class="due-money-btn">
               查看详情 》
             </div>
@@ -84,7 +84,7 @@
         <el-col class="due" :span="6">
           <div class="due-money">
             <h4><i class="fa fa-money"></i>账户总资产</h4>
-            <p><i>￥</i> <span>2078.00</span></p>
+            <p><i>￥</i> <span>{{userInfo.sumPrope}}</span></p>
             <div class="due-money-btn active">
               查看详情 》
             </div>
@@ -93,7 +93,7 @@
         <el-col class="due" :span="6">
           <div class="due-money">
             <h4><i class="fa fa-money"></i>已得回报</h4>
-            <p><i>￥</i> <span>1000.00</span></p>
+            <p><i>￥</i> <span>{{userInfo.getPrope}}</span></p>
             <div class="due-money-btn">
               查看详情 》
             </div>
@@ -102,7 +102,7 @@
         <el-col class="due" :span="6">
           <div class="due-money">
             <h4><i class="fa fa-money"></i>期待回报</h4>
-            <p><i>￥</i> <span>3000.00</span></p>
+            <p><i>￥</i> <span>{{userInfo.expectPrope}}</span></p>
             <div class="due-money-btn active">
               查看详情 》
             </div>
@@ -142,10 +142,27 @@
 </template>
 
 <script>
+import { getinfo } from '@/api/user'
 export default {
   name: 'personal',
   data () {
-    return {}
+    return {
+      userInfo: {}
+    }
+  },
+  created () {
+    this.loadUserInfo()
+  },
+  methods: {
+    async loadUserInfo () {
+      try {
+        let list = await getinfo(1)
+        console.log(list)
+        this.userInfo = list.data
+      } catch (e) {
+        console.log(e)
+      }
+    }
   }
 }
 </script>

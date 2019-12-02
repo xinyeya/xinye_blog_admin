@@ -10,23 +10,23 @@
             <el-form-item label="姓名" placeholder="请输入姓名">
               <el-input disabled></el-input>
             </el-form-item>
-            <el-form-item label="昵称" prop="name" placeholder="请输入昵称">
+            <el-form-item label="昵称" prop="nickname" placeholder="请输入昵称">
               <el-input v-model="form.nickname"></el-input>
             </el-form-item>
-            <el-form-item label="投资年限" prop="year">
-              <el-select v-model="form.year" placeholder="请选择投资年限">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
+            <el-form-item label="投资年限" prop="invetYear">
+              <el-select v-model="form.invetYear" placeholder="请选择投资年限">
+                <el-option label="10" value="10"></el-option>
+                <el-option label="20" value="20"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="绑定邮箱" prop="email" placeholder="请输入绑定邮箱">
-              <el-input v-model="form.eamil"></el-input>
+              <el-input v-model="form.email"></el-input>
             </el-form-item>
             <el-form-item label="绑定手机" prop="mobile" placeholder="请输入绑定手机">
               <el-input v-model="form.mobile"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+              <el-button type="primary" @click="submitFormInfo('ruleForm')">提交</el-button>
               <el-button @click="resetForm('ruleForm')">重置</el-button>
             </el-form-item>
           </el-form>
@@ -91,6 +91,7 @@
 </template>
 
 <script>
+import { editUserinfo } from '@/api/user'
 export default {
   name: 'edit_personal',
   data () {
@@ -115,23 +116,21 @@ export default {
     }
     return {
       form: {
-        name: '',
-        year: '',
+        nickname: '',
+        invetYear: '',
         email: '',
         mobile: ''
       },
       rules: {
-        name: [
+        nickname: [
           { required: true, message: '请输入昵称', trigger: 'blur' },
           { min: 2, max: 8, message: '长度在 2 到 8 个字符', trigger: 'blur' }
         ],
-        year: [
-          { required: true, message: '请选择投资年限', trigger: 'blur' },
-          { min: 2, max: 8, message: '长度在 2 到 8 个字符', trigger: 'blur' }
+        invetYear: [
+          { required: true, message: '请选择投资年限', trigger: 'blur' }
         ],
         email: [
-          { required: true, message: '请输入邮箱~', trigger: 'blur' },
-          { min: 2, max: 8, message: '长度在 2 到 8 个字符', trigger: 'blur' }
+          { required: true, message: '请输入邮箱~', trigger: 'blur' }
         ],
         mobile: [
           { required: true, message: '请输入手机号码~' }
@@ -172,6 +171,34 @@ export default {
     }
   },
   methods: {
+    submitFormInfo (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (!valid) {
+          return
+        }
+        this.editUserInfo()
+      })
+    },
+
+    async editUserInfo () {
+      try {
+        let list = await editUserinfo(1, this.form)
+        if (list !== '修改成功') {
+          this.$notify.error({
+            title: '错误',
+            message: list.data
+          })
+        }
+        this.$notify({
+          title: '成功',
+          message: list.data,
+          type: 'success'
+        })
+      } catch (e) {
+        console.log(e)
+      }
+    },
+
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -181,6 +208,7 @@ export default {
         }
       })
     },
+
     resetForm (formName) {
       this.$refs[formName].resetFields()
     },

@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import { userinfo } from '@/api/user'
+import { userlist } from '@/api/user'
 export default {
   name: 'user',
   data () {
@@ -112,7 +112,7 @@ export default {
 
     async loadUserTable (page, pageSize) {
       try {
-        let list = await userinfo(page, pageSize)
+        let list = await userlist(page, pageSize)
         this.userData = list.data.list
         this.total = list.data.count
       } catch (e) {
