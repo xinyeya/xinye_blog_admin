@@ -40,52 +40,52 @@
               align="center">
             </el-table-column>
             <el-table-column
-              prop="native"
+              prop="nativePlace"
               label="籍贯"
               width="120"
               align="center">
             </el-table-column>
             <el-table-column
-              prop="invest_time"
+              prop="investTime"
               label="投资时间"
               sortable
               align="center"
               show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-              prop="in_exp_type"
+              prop="incomeType"
               label="收支类型"
               align="center"
               show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-              prop=""
+              prop="income"
               label="收入"
               align="center"
               sortable
               show-overflow-tooltip>
               <template slot-scope="scope">
-                <span style="color: green;">{{scope.row.income}}</span>
+                <span style="color: green;">+{{scope.row.income}}</span>
               </template>
             </el-table-column>
             <el-table-column
-              prop=""
+              prop="expend"
               label="支出"
               align="center"
               sortable
               show-overflow-tooltip>
               <template slot-scope="scope">
-                <span style="color: red;">{{scope.row.expend}}</span>
+                <span style="color: red;">-{{scope.row.expend}}</span>
               </template>
             </el-table-column>
             <el-table-column
-              prop=""
+              prop="accountCash"
               label="账户现金"
               align="center"
               sortable
               show-overflow-tooltip>
               <template slot-scope="scope">
-                <span style="color: blue;">{{scope.row.cash_account}}</span>
+                <span style="color: blue;">{{scope.row.accountCash}}</span>
               </template>
             </el-table-column>
             <el-table-column
@@ -124,6 +124,7 @@
 </template>
 
 <script>
+import { getMoneyList } from '@/api/money.js'
 export default {
   name: 'money_water',
   data () {
@@ -132,68 +133,16 @@ export default {
         user: '',
         region: ''
       },
-      tableData: [
-        {
-          username: '嘉洋',
-          native: '甘肃省 白银市 靖远县',
-          invest_time: '1998-12-30 19:24:37',
-          in_exp_type: '购买宜定盈',
-          income: '+6792.08',
-          expend: '-5667.53',
-          cash_account: '9561.24'
-        },
-        {
-          username: '嘉洋',
-          native: '甘肃省 白银市 靖远县',
-          invest_time: '1998-12-30 19:24:37',
-          in_exp_type: '购买宜定盈',
-          income: '+ 6792.08',
-          expend: '-5667.53',
-          cash_account: '9561.24'
-        },
-        {
-          username: '嘉洋',
-          native: '甘肃省 白银市 靖远县',
-          invest_time: '1998-12-30 19:24:37',
-          in_exp_type: '购买宜定盈',
-          income: '+ 6792.08',
-          expend: '-5667.53',
-          cash_account: '9561.24'
-        },
-        {
-          username: '嘉洋',
-          native: '甘肃省 白银市 靖远县',
-          invest_time: '1998-12-30 19:24:37',
-          in_exp_type: '购买宜定盈',
-          income: '+ 6792.08',
-          expend: '-5667.53',
-          cash_account: '9561.24'
-        },
-        {
-          username: '嘉洋',
-          native: '甘肃省 白银市 靖远县',
-          invest_time: '1998-12-30 19:24:37',
-          in_exp_type: '购买宜定盈',
-          income: '+ 6792.08',
-          expend: '-5667.53',
-          cash_account: '9561.24'
-        },
-        {
-          username: '嘉洋',
-          native: '甘肃省 白银市 靖远县',
-          invest_time: '1998-12-30 19:24:37',
-          in_exp_type: '购买宜定盈',
-          income: '+ 6792.08',
-          expend: '-5667.53',
-          cash_account: '9561.24'
-        }
-      ],
+      tableData: [],
       multipleSelection: [],
       currentPage1: 5,
       currentPage2: 5,
       currentPage3: 5,
       currentPage4: 4
     }
+  },
+  created () {
+    this.loadGetMoneyList()
   },
   methods: {
     onSubmit () {
@@ -207,6 +156,15 @@ export default {
     },
     handleCurrentChange (val) {
       console.log(`当前页: ${val}`)
+    },
+    async loadGetMoneyList () {
+      try {
+        let moneyList = await getMoneyList()
+        this.tableData = moneyList.data
+        console.log(moneyList)
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }

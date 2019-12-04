@@ -116,7 +116,6 @@ export default {
         this.userData = list.data.list
         this.total = list.data.count
       } catch (e) {
-        console.log(e)
       }
     }
   }
