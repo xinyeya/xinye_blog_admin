@@ -96,7 +96,7 @@
               <template slot-scope="scope">
                 <el-button
                   size="mini"
-                  @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                  @click="handleEditShow(scope.row)">编辑</el-button>
                 <el-button
                   size="mini"
                   type="danger"
@@ -161,7 +161,8 @@
 </template>
 
 <script>
-import { getMoneyList, addMoneyUser, delUserList } from '@/api/money.js'
+import { getMoneyList, addMoneyUser, delUserList, getEditUserList, editUserList } from '@/api/money.js'
+var editId = ''
 export default {
   name: 'money_water',
   data () {
@@ -180,8 +181,10 @@ export default {
         income: '',
         expend: '',
         incomeType: '',
-        accountCash: ''
+        accountCash: '',
+        remark: ''
       },
+      addEdit: true, // 判断是修改还是添加, true为添加，false为修改
       formLabelWidth: '120px',
       addMoneyForm: false,
       delDisabled: true,
@@ -246,39 +249,60 @@ export default {
         if (!valid) {
           return
         }
-        this.handleAddMoneySave()
+        if (this.addEdit) {
+          this.handleAddMoneySave()
+        } else {
+          this.handleAddMoneySave(editId)
+        }
       })
     },
     // 添加用户资金数据
-    async handleAddMoneySave () {
+    async handleAddMoneySave (id) {
       try {
-        let res = await addMoneyUser(this.addForm)
-        // console.log(res)
-        if (res.data) {
-          this.$notify({
-            title: '成功',
-            message: '添加成功',
-            type: 'success'
-          })
+        if (!id) {
+          let res = await addMoneyUser(this.addForm)
+          if (res.data) {
+            this.$notify({
+              title: '成功',
+              message: '添加成功',
+              type: 'success'
+            })
+          } else {
+            this.$notify.error({
+              title: '失败',
+              message: '添加失败'
+            })
+          }
+        } else {
+          let res = await editUserList(id, this.addForm)
+          if (res.data) {
+            this.$notify({
+              title: '成功',
+              message: '修改成功',
+              type: 'success'
+            })
+          } else {
+            this.$notify.error({
+              title: '失败',
+              message: '添加失败'
+            })
+          }
         }
         this.addMoneyForm = false
         this.addForm = {}
         this.loadGetMoneyList()
       } catch (e) {
-        this.$notify.error({
-          title: '失败',
-          message: '添加失败'
-        })
+        this.$message.error('系统错误')
       }
     },
     // 删除用户
     async handleDelUserList (uid) {
       try {
-        let id = uid
-        if (this.multipleSelection !== []) {
-          id = this.multipleSelection
+        var delId = uid
+        if (this.multipleSelection.length !== 0) {
+          delId = this.multipleSelection
         }
-        let res = await delUserList(id)
+        let res = await delUserList(delId)
         if (res.data) {
           this.$notify({
             title: '成功',
@@ -287,17 +311,30 @@ export default {
           })
           this.loadGetMoneyList()
           this.delDisabled = true
+          this.multipleSelection = []
         }
       } catch (e) {
-        console.log(e)
         this.$notify.error({
           title: '失败',
           message: '删除失败'
         })
       }
     },
+    // 单个删除
     handleDelete (row) {
       this.handleDelUserList(row.id)
+    },
+    // 修改页面
+    async handleEditShow (row) {
+      try {
+        let res = await getEditUserList(row.id)
+        this.addForm = res.data
+        this.addMoneyForm = true
+        this.addEdit = false
+        editId = row.id
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }

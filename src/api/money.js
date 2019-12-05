@@ -9,7 +9,7 @@ export const getMoneyList = (page = 1, pageSize = 10) => {
 }
 
 // 添加数据
-export const addMoneyUser = ({ username, income, expend, incomeType, accountCash }) => {
+export const addMoneyUser = ({ username, income, expend, incomeType, accountCash, remark }) => {
   return request({
     method: 'POST',
     url: '/admin/money',
@@ -18,7 +18,8 @@ export const addMoneyUser = ({ username, income, expend, incomeType, accountCash
       income,
       expend,
       incomeType,
-      accountCash
+      accountCash,
+      remark
     }
   })
 }
@@ -30,6 +31,38 @@ export const delUserList = id => {
     url: '/admin/money',
     data: {
       id
+    }
+  })
+}
+
+// 获取要修改的数据
+export const getEditUserList = id => {
+  return request({
+    method: 'GET',
+    url: `/admin/money/read?id=${id}`
+  })
+}
+
+// 修改数据
+export const editUserList = (id,
+  {
+    username,
+    income,
+    expend,
+    incomeType,
+    accountCash,
+    remark
+  }) => {
+  return request({
+    method: 'PUT',
+    url: `/admin/money?id=${id}`,
+    data: {
+      username,
+      income,
+      expend,
+      incomeType,
+      accountCash,
+      remark
     }
   })
 }
