@@ -14,10 +14,11 @@
         </el-col>
         <el-col :offset="8" :span="6">
           <el-button size="mini" disabled type="primary">批量删除</el-button>
-          <el-button size="mini" type="primary">添加</el-button>
+          <el-button size="mini" type="primary" @click="addMoneyForm=true">添加</el-button>
         </el-col>
       </el-row>
     </el-card>
+    <!-- 表格 -->
     <el-card>
       <el-row>
         <el-col>
@@ -105,26 +106,62 @@
           </el-table>
         </el-col>
       </el-row>
-      <el-row class="water_pagination">
-        <el-col :offset="11">
+      <el-row class="water_pagination" type="flex" justify="end">
+        <el-col :span="17">
           <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
-            :current-page="currentPage4"
-            :page-sizes="[100, 200, 300, 400]"
-            :page-size="100"
+            :current-page="page"
+            :page-sizes="[10, 15, 20, 25, 30]"
+            :page-size="pageSize"
             layout="total, sizes, prev, pager, next, jumper"
             background
-            :total="400">
+            :total="count">
           </el-pagination>
         </el-col>
       </el-row>
     </el-card>
+    <!-- 表单 -->
+    <el-dialog title="新增资金信息" :visible.sync="addMoneyForm">
+      <el-form :model="addForm" size="mini" :rules="rules" ref="addMoneyValidateForm">
+        <el-form-item label="收支类型" :label-width="formLabelWidth">
+          <el-select v-model="addForm.incomeType" placeholder="请选择活动区域">
+            <el-option label="提现" value="提现"></el-option>
+            <el-option label="提现手续费" value="提现手续费"></el-option>
+            <el-option label="提现锁定" value="理财服务退出"></el-option>
+            <el-option label="购买宜定盈" value="购买宜定盈"></el-option>
+            <el-option label="充值" value="充值"></el-option>
+            <el-option label="优惠券" value="优惠券"></el-option>
+            <el-option label="充值礼券" value="充值礼券"></el-option>
+            <el-option label="转账" value="转账"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="用户名" prop="username" :label-width="formLabelWidth">
+          <el-input v-model="addForm.username" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="收入" prop="income" :label-width="formLabelWidth">
+          <el-input v-model="addForm.income" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="支出" prop="expend" :label-width="formLabelWidth">
+          <el-input v-model="addForm.expend" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="账户现金" prop="accountCash" :label-width="formLabelWidth">
+          <el-input v-model="addForm.accountCash" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="备注" :label-width="formLabelWidth">
+          <el-input v-model="addForm.remark" autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="addMoneyForm = false">取 消</el-button>
+        <el-button type="primary" @click="handleAddForm('addMoneyValidateForm')">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { getMoneyList } from '@/api/money.js'
+import { getMoneyList, addMoneyUser } from '@/api/money.js'
 export default {
   name: 'money_water',
   data () {
@@ -135,10 +172,33 @@ export default {
       },
       tableData: [],
       multipleSelection: [],
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4
+      pageSize: 10,
+      page: 1,
+      count: 0,
+      addForm: {
+        username: '',
+        income: '',
+        expend: '',
+        incomeType: '',
+        accountCash: ''
+      },
+      formLabelWidth: '120px',
+      addMoneyForm: false,
+      rules: {
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { min: 2, message: '长度不能少于两个字符', trigger: 'blur' }
+        ],
+        income: [
+          { required: true, message: '收入不能为空', trigger: 'blur' }
+        ],
+        expend: [
+          { required: true, message: '支出不能为空', trigger: 'blur' }
+        ],
+        accountCash: [
+          { required: true, message: '账户现金不能为空', trigger: 'blur' }
+        ]
+      }
     }
   },
   created () {
@@ -148,22 +208,59 @@ export default {
     onSubmit () {
       console.log('submit!')
     },
+    // 可以切换的每页的条数
     handleSelectionChange (val) {
       this.multipleSelection = val
     },
+    // 切换每页条数
     handleSizeChange (val) {
-      console.log(`每页 ${val} 条`)
+      this.pageSize = val
+      this.loadGetMoneyList(this.page, val)
     },
+    // 下一页
     handleCurrentChange (val) {
-      console.log(`当前页: ${val}`)
+      this.page = val
+      this.loadGetMoneyList(val, this.pageSize)
     },
+    // 获取表格数据
     async loadGetMoneyList () {
       try {
-        let moneyList = await getMoneyList()
-        this.tableData = moneyList.data
-        console.log(moneyList)
+        let moneyList = await getMoneyList(this.page, this.pageSize)
+        this.tableData = moneyList.data.data
+        this.count = moneyList.data.count
+        // console.log(moneyList)
       } catch (e) {
         console.log(e)
+      }
+    },
+    // 验证添加数据表单是否为空
+    handleAddForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (!valid) {
+          return
+        }
+        this.handleAddMoneySave()
+      })
+    },
+    // 添加用户资金数据
+    async handleAddMoneySave () {
+      try {
+        let res = await addMoneyUser(this.addForm)
+        console.log(res)
+        if (res.data) {
+          this.$notify({
+            title: '成功',
+            message: '添加成功',
+            type: 'success'
+          })
+        }
+        this.addMoneyForm = false
+        this.loadGetMoneyList()
+      } catch (e) {
+        this.$notify.error({
+          title: '失败',
+          message: '添加失败'
+        })
       }
     }
   }
