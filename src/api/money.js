@@ -1,5 +1,6 @@
 import request from '@/utils/request.js'
 
+// 查询表格数据
 export const getMoneyList = (page = 1, pageSize = 10) => {
   return request({
     method: 'GET',
@@ -7,6 +8,7 @@ export const getMoneyList = (page = 1, pageSize = 10) => {
   })
 }
 
+// 添加数据
 export const addMoneyUser = ({ username, income, expend, incomeType, accountCash }) => {
   return request({
     method: 'POST',
@@ -17,6 +19,17 @@ export const addMoneyUser = ({ username, income, expend, incomeType, accountCash
       expend,
       incomeType,
       accountCash
+    }
+  })
+}
+
+// 删除数据
+export const delUserList = id => {
+  return request({
+    method: 'DELETE',
+    url: '/admin/money',
+    data: {
+      id
     }
   })
 }

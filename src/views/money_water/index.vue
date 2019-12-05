@@ -13,7 +13,7 @@
             </el-form>
         </el-col>
         <el-col :offset="8" :span="6">
-          <el-button size="mini" disabled type="primary">批量删除</el-button>
+          <el-button size="mini" :disabled="delDisabled" type="primary" @click="handleDelUserList">批量删除</el-button>
           <el-button size="mini" type="primary" @click="addMoneyForm=true">添加</el-button>
         </el-col>
       </el-row>
@@ -100,7 +100,7 @@
                 <el-button
                   size="mini"
                   type="danger"
-                  @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                  @click="handleDelete(scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -161,7 +161,7 @@
 </template>
 
 <script>
-import { getMoneyList, addMoneyUser } from '@/api/money.js'
+import { getMoneyList, addMoneyUser, delUserList } from '@/api/money.js'
 export default {
   name: 'money_water',
   data () {
@@ -184,6 +184,7 @@ export default {
       },
       formLabelWidth: '120px',
       addMoneyForm: false,
+      delDisabled: true,
       rules: {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -204,13 +205,20 @@ export default {
   created () {
     this.loadGetMoneyList()
   },
+  watch: {
+    multipleSelection (n, o) {
+      this.delDisabled = false
+    }
+  },
   methods: {
     onSubmit () {
       console.log('submit!')
     },
-    // 可以切换的每页的条数
+    // 删除的条数
     handleSelectionChange (val) {
-      this.multipleSelection = val
+      val.forEach(item => {
+        this.multipleSelection.push(item.id)
+      })
     },
     // 切换每页条数
     handleSizeChange (val) {
@@ -228,7 +236,6 @@ export default {
         let moneyList = await getMoneyList(this.page, this.pageSize)
         this.tableData = moneyList.data.data
         this.count = moneyList.data.count
-        // console.log(moneyList)
       } catch (e) {
         console.log(e)
       }
@@ -246,7 +253,7 @@ export default {
     async handleAddMoneySave () {
       try {
         let res = await addMoneyUser(this.addForm)
-        console.log(res)
+        // console.log(res)
         if (res.data) {
           this.$notify({
             title: '成功',
@@ -255,6 +262,7 @@ export default {
           })
         }
         this.addMoneyForm = false
+        this.addForm = {}
         this.loadGetMoneyList()
       } catch (e) {
         this.$notify.error({
@@ -262,6 +270,34 @@ export default {
           message: '添加失败'
         })
       }
+    },
+    // 删除用户
+    async handleDelUserList (uid) {
+      try {
+        let id = uid
+        if (this.multipleSelection !== []) {
+          id = this.multipleSelection
+        }
+        let res = await delUserList(id)
+        if (res.data) {
+          this.$notify({
+            title: '成功',
+            message: '删除成功',
+            type: 'success'
+          })
+          this.loadGetMoneyList()
+          this.delDisabled = true
+        }
+      } catch (e) {
+        console.log(e)
+        this.$notify.error({
+          title: '失败',
+          message: '删除失败'
+        })
+      }
+    },
+    handleDelete (row) {
+      this.handleDelUserList(row.id)
     }
   }
 }
