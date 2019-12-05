@@ -66,3 +66,11 @@ export const editUserList = (id,
     }
   })
 }
+
+// 用户名搜索用户
+export const searchUserList = username => {
+  return request({
+    method: 'GET',
+    url: `/admin/money/search?username=${username}`
+  })
+}

@@ -2,17 +2,13 @@
   <div>
     <el-card>
       <el-row>
-        <el-col :span="10">
-            <el-form :inline="true" :model="formInline" class="demo-form-inline">
-              <el-form-item>
-                <el-input size="mini" v-model="formInline.user" placeholder="用户名"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-button size="mini" type="primary" @click="onSubmit">筛选</el-button>
-              </el-form-item>
-            </el-form>
+        <el-col :span="4">
+          <el-input size="mini" v-model="search" placeholder="用户名"></el-input>
         </el-col>
-        <el-col :offset="8" :span="6">
+        <el-col :span="2">
+          <el-button size="mini" type="primary" @click="searchForm">筛选</el-button>
+        </el-col>
+        <el-col :offset="14" :span="4">
           <el-button size="mini" :disabled="delDisabled" type="primary" @click="handleDelUserList">批量删除</el-button>
           <el-button size="mini" type="primary" @click="addMoneyForm=true">添加</el-button>
         </el-col>
@@ -161,7 +157,7 @@
 </template>
 
 <script>
-import { getMoneyList, addMoneyUser, delUserList, getEditUserList, editUserList } from '@/api/money.js'
+import { getMoneyList, addMoneyUser, delUserList, getEditUserList, editUserList, searchUserList } from '@/api/money.js'
 var editId = ''
 export default {
   name: 'money_water',
@@ -188,6 +184,7 @@ export default {
       formLabelWidth: '120px',
       addMoneyForm: false,
       delDisabled: true,
+      search: '',
       rules: {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -214,9 +211,6 @@ export default {
     }
   },
   methods: {
-    onSubmit () {
-      console.log('submit!')
-    },
     // 删除的条数
     handleSelectionChange (val) {
       val.forEach(item => {
@@ -332,6 +326,21 @@ export default {
         this.addMoneyForm = true
         this.addEdit = false
         editId = row.id
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    // 通过用户名查找用户
+    async searchForm () {
+      try {
+        if (this.search === '') {
+          this.loadGetMoneyList()
+          return
+        }
+        let res = await searchUserList(this.search)
+        let data = []
+        data.push(res.data)
+        this.tableData = data
       } catch (e) {
         console.log(e)
       }
